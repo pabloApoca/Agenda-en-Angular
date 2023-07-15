@@ -7,11 +7,16 @@ import { Contacto } from './model';
     providedIn: 'root'
 })
 export class ApiService {
+
+    private urlApi = 'api/contactos';
+
     constructor(
         private http: HttpClient
     ) { }
 
     getContactos(): Observable<Contacto[]> {
-        return this.http.get<Contacto[]>('http://localhost:8080/contactos');
+        const con = this.http.get<Contacto[]>('http://localhost:8080/api/contactos');
+        console.log(con);
+        return this.http.get<Contacto[]>(this.urlApi);
     }
 }

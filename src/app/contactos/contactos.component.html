@@ -3,14 +3,16 @@
 
     <table class="mt-5 table table-hover">
         <thead>
-            <tr>ID</tr>
-            <tr>NOMBRE</tr>
-            <tr>FECHA NACIMIENTO</tr>
-            <tr>CELULAR</tr>
-            <tr>EMAIL</tr>
+            <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>FECHA NACIMIENTO</th>
+                <th>CELULAR</th>
+                <th>EMAIL</th>
+            </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let contacto of contactos>
+            <tr *ngFor="let contacto of contactos">
                 <td>{{ contacto.id }}</td>
                 <td>{{ contacto.nombre }}</td>
                 <td>{{ contacto.fechaNacimiento | date:'dd/MM/yyyy' }}</td>
