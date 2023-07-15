@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Contacto } from './model';
+import { Contacto, Credentials } from './model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -9,14 +10,33 @@ import { Contacto } from './model';
 export class ApiService {
 
     private urlApi = 'api/contactos';
+    private urlApi2 = 'login';
 
     constructor(
         private http: HttpClient
     ) { }
 
     getContactos(): Observable<Contacto[]> {
-        const con = this.http.get<Contacto[]>('http://localhost:8080/api/contactos');
-        console.log(con);
         return this.http.get<Contacto[]>(this.urlApi);
+    }
+
+    login(creds: Credentials){
+        return this.http.post(this.urlApi2, creds, {
+            observe: 'response'
+        }).pipe(map((response: HttpResponse<any>) => {
+            const body = response.body;
+            const headers = response.headers;
+
+            const bearerToken = headers.get('Authorization')!;
+            const token = bearerToken.replace('Bearer ', '');
+
+            localStorage.setItem('token', token);
+
+            return body;
+        }))
+    }
+
+    getToken() {
+        return localStorage.getItem('token');
     }
 }
