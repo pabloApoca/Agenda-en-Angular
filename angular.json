@@ -68,12 +68,8 @@
               "browserTarget": "Agenda-en-Angular:build:production"
             },
             "development": {
-              "browserTarget": "Agenda-en-Angular:build:development",
-              "proxyConfig": "src/proxy.conf.json"
+              "browserTarget": "Agenda-en-Angular:build:development"
             }
-          },
-          "options": {
-            "proxyConfig": "src/proxy.conf.json"
           },
           "defaultConfiguration": "development"
         },

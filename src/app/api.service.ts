@@ -9,8 +9,8 @@ import { map } from 'rxjs/operators';
 })
 export class ApiService {
 
-    private urlApi = 'api/contactos';
-    private urlApi2 = 'login';
+    private urlApi = 'http://localhost:8080/api/contactos';
+    private urlApi2 = 'http://localhost:8080/login';
 
     constructor(
         private http: HttpClient
