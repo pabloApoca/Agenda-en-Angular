@@ -20,4 +20,8 @@ export class ContactosComponent implements OnInit {
     })
   }
 
+  removeToken(){
+    this.apiService.removeToken();
+  }
+
 }

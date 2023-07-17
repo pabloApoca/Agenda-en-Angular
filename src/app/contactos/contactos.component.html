@@ -1,4 +1,8 @@
 <div class="container mt-5" *ngIf="contactos">
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-danger w-auto" (click)="removeToken()">Cerrar sesión</button>
+    </div>
+
     <h3>Mis contactos</h3>
 
     <table class="mt-5 table table-hover">
