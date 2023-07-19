@@ -8,6 +8,7 @@ import { Contacto } from '../model';
 })
 export class ContactosComponent implements OnInit {
   contactos?: Contacto[];
+  name?: string | null = '';
 
   constructor(
     private apiService: ApiService
@@ -18,6 +19,9 @@ export class ContactosComponent implements OnInit {
     .subscribe(contactos => {
       this.contactos = contactos;
     })
+
+    this.name = this.apiService.getName();
+    this.apiService.getUser();
   }
 
   removeToken(){

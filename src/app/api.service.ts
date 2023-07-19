@@ -31,8 +31,14 @@ export class ApiService {
 
             const bearerToken = headers.get('Authorization')!;
             const token = bearerToken.replace('Bearer ', '');
+            const user = headers.get('user')!;
+            const name = headers.get('name')!;
+            const email = headers.get('email')!;
 
             localStorage.setItem('token', token);
+            localStorage.setItem('user', user);
+            localStorage.setItem('name', name);
+            localStorage.setItem('email', email);
 
             return body;
         }))
@@ -40,6 +46,17 @@ export class ApiService {
 
     getToken() {
         return localStorage.getItem('token');
+    }
+
+    getName():string | null {
+        const name = localStorage.getItem('name');
+        return name;
+    }
+
+    getUser(): string | null {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        console.log(user);
+        return user;
     }
 
     removeToken(){
