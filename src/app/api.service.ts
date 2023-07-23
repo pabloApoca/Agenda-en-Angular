@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Contacto, Credentials } from './model';
+import { Contacto, Credentials, User } from './model';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -12,6 +12,7 @@ export class ApiService {
 
     private urlApi = 'http://localhost:8080/api/contactos';
     private urlApi2 = 'http://localhost:8080/login';
+    private urlApi3 = 'http://localhost:8080/register';
 
     constructor(
         private http: HttpClient,
@@ -24,6 +25,29 @@ export class ApiService {
 
     login(creds: Credentials){
         return this.http.post(this.urlApi2, creds, {
+            observe: 'response'
+        }).pipe(map((response: HttpResponse<any>) => {
+            const body = response.body;
+            const headers = response.headers;
+
+            const bearerToken = headers.get('Authorization')!;
+            const token = bearerToken.replace('Bearer ', '');
+            const user = headers.get('user')!;
+            const name = headers.get('name')!;
+            const email = headers.get('email')!;
+
+            localStorage.setItem('token', token);
+            localStorage.setItem('user', user);
+            localStorage.setItem('name', name);
+            localStorage.setItem('email', email);
+
+            return body;
+        }))
+    }
+
+
+    register(user: User){
+        return this.http.post(this.urlApi3, user, {
             observe: 'response'
         }).pipe(map((response: HttpResponse<any>) => {
             const body = response.body;
@@ -60,7 +84,8 @@ export class ApiService {
     }
 
     removeToken(){
-        localStorage.removeItem('token');
+        // localStorage.removeItem('token');
+        localStorage.clear();
         this.router.navigate(['/login']);
     }
 }

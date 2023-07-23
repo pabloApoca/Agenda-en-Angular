@@ -1,17 +1,22 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@Angular/forms';
-import { Credentials } from '../model';
+import { User } from '../model';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 
+
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
+  selector: 'app-register',
+  templateUrl: './register.component.html',
 })
-export class LoginComponent {
-  creds: Credentials = {
+export class RegisterComponent {
+
+  user: User = {
+    nombre: '',
+    apellido: '',
+    dni: null,
     email: '',
-    password: ''
+    password: '',
   };
 
   constructor(
@@ -20,17 +25,15 @@ export class LoginComponent {
   ) {
   }
 
-  login(form: NgForm) {
+
+
+  register(form: NgForm) {
     console.log('form value', form.value);
 
-    this.apiService.login(this.creds)
+    this.apiService.register(this.user)
     .subscribe(response => {
       this.router.navigate(['/']);
     })
-  }
-
-  register(){
-    this.router.navigate(['/register']);
   }
 
 }

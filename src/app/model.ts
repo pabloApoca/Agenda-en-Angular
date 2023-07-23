@@ -10,3 +10,11 @@ export interface Credentials {
     email: string;
     password: string;
 }
+
+export interface User {
+    nombre: string;
+    apellido?: string;
+    dni?: number | null;
+    email?: string;
+    password?: string;
+}
